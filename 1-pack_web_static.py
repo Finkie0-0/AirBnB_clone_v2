@@ -10,10 +10,11 @@ def do_pack():
     """Generates .tgz archive from the /web_static's content
     """
     now = datetime.now().strftime('%Y%m%d%H%M%S')
-    filePath = 'versions/web_static_{}.tgz'.format(now)
+    created = 'versions/web_static_{}.tgz'.format(now)
 
     local('mkdir -p versions/')
     created = local('tar -cvzf {} web_static/'.format(filePath))
 
     if created.succeeded:
-        return filePath
+        return created
+    return None
