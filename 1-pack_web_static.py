@@ -9,11 +9,9 @@ from datetime import datetime
 def do_pack():
     """Generates .tgz archive from the /web_static's content
     """
-    now = datetime.now().strftime('%Y%m%d%H%M%S')
-    created = 'versions/web_static_{}.tgz'.format(now)
-
-    local('mkdir -p versions/')
-    created = local('tar -cvzf {} web_static/'.format(created))
+    local('mkdir -p versions')
+    created = local("tar -czvf versions/web_static_{}.tgz web_static/".format((
+        datetime.strftime(datetime.now(), "%Y%m%d%H%M%S"))), capture=True)
 
     if created.succeeded:
         return created
