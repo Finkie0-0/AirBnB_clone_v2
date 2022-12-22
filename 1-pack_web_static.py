@@ -13,7 +13,7 @@ def do_pack():
     created = 'versions/web_static_{}.tgz'.format(now)
 
     local('mkdir -p versions/')
-    created = local('tar -cvzf {} web_static/'.format(filePath))
+    created = local('tar -cvzf {} web_static/'.format(created))
 
     if created.succeeded:
         return created
