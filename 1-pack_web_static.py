@@ -7,12 +7,14 @@ from datetime import datetime
 
 
 def do_pack():
-    """Generates .tgz archive from the /web_static's content
+    """Generates .tgz archive from the contents of /web_static
+       returns archive's path if successful and None if not
     """
-    local('mkdir -p versions')
-    created = local("tar -czvf versions/web_static_{}.tgz web_static/".format((
-        datetime.strftime(datetime.now(), "%Y%m%d%H%M%S"))), capture=True)
+    now = datetime.now().strftime('%Y%m%d%H%M%S')
+    filePath = 'versions/web_static_{}.tgz'.format(now)
 
-    if created.succeeded:
-        return created
-    return None
+    local('mkdir -p versions/')
+    createArchive = local('tar -cvzf {} web_static/'.format(filePath))
+
+    if createArchive.succeeded:
+        return filePath
